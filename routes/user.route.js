@@ -31,6 +31,7 @@ router.route('/login').post((req, res) => {
 	User.findOne({ username: req.body.username }).exec((err, user) => {
 		if (err) {
 			res.status(500).json({ message: err });
+			return;
 		}
 		if (!user) {
 			res
@@ -38,8 +39,15 @@ router.route('/login').post((req, res) => {
 				.json({ message: `User '${req.body.username}' not found` });
 			return;
 		}
-		if (!bcrypt.compareSync(req.body.password, user.password)) {
-			res.status(401).json({ accessToken: null, message: 'Invalid Password' });
+		try {
+			if (!bcrypt.compareSync(req.body.password, user.password)) {
+				res
+					.status(401)
+					.json({ accessToken: null, message: 'Invalid Password' });
+				return;
+			}
+		} catch (err) {
+			res.status(500).json({ message: err });
 			return;
 		}
 

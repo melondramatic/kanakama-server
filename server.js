@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').parse();
+	require('dotenv').config();
 }
 
 const app = express();

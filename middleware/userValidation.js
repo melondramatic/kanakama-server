@@ -5,7 +5,6 @@ ValidateUser = (req, res, next) => {
 	User.findOne({
 		username: req.body.username,
 	}).exec((err, user) => {
-		console.log('middleware1');
 		if (err) {
 			res.status(500).json({ message: err });
 			return;
@@ -20,8 +19,6 @@ ValidateUser = (req, res, next) => {
 		User.findOne({
 			email: req.body.email,
 		}).exec((err, user) => {
-			console.log('middleware2');
-
 			if (err) {
 				res.status(500).json({ message: err });
 				return;
