@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-if (process.env.NODE_ENV !== 'prodiction') {
+if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').parse();
 }
 
