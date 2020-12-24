@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const mongoose = require('mongoose');
 
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'prodiction') {
+	require('dotenv').parse();
+}
 
 const app = express();
 
