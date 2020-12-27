@@ -7,6 +7,7 @@ const ValidateUser = require('../middleware/userValidation');
 
 router.use('/add', [ValidateUser]);
 router.route('/add').post((req, res) => {
+	console.log('add user');
 	const username = req.body.username;
 	const password = bcrypt.hashSync(req.body.password, 10);
 	const email = req.body.email;
@@ -28,6 +29,7 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/login').post((req, res) => {
+	console.log('login user');
 	User.findOne({ username: req.body.username }).exec((err, user) => {
 		if (err) {
 			res.status(500).json({ message: err });

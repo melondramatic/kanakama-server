@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 
 ValidateUser = (req, res, next) => {
+	console.log('validate user');
 	User.findOne({
 		username: req.body.username,
 	}).exec((err, user) => {
