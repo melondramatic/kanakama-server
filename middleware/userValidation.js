@@ -1,4 +1,3 @@
-const { validate } = require('../models/user.model');
 const User = require('../models/user.model');
 
 ValidateUser = (req, res, next) => {
