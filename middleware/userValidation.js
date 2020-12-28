@@ -5,11 +5,13 @@ ValidateUser = (req, res, next) => {
 	User.findOne({
 		username: req.body.username,
 	}).exec((err, user) => {
+		console.log(err);
 		if (err) {
 			res.status(500).json({ message: err });
 			return;
 		}
 		if (user) {
+			console.log('already user');
 			res
 				.status(400)
 				.json({ message: `Username '${req.body.username}' is already in use` });
