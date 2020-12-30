@@ -1,17 +1,14 @@
 const User = require('../models/user.model');
 
 ValidateUser = (req, res, next) => {
-	console.log('validate user');
 	User.findOne({
 		username: req.body.username,
 	}).exec((err, user) => {
-		console.log(err);
 		if (err) {
 			res.status(500).json({ message: err });
 			return;
 		}
 		if (user) {
-			console.log('already user');
 			res
 				.status(400)
 				.json({ message: `Username '${req.body.username}' is already in use` });
