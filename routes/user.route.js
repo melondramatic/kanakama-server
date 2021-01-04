@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user.model');
 const ValidateUser = require('../middleware/userValidation');
+const AuthenticateUser = require('../middleware/userAuthentication');
+const MakeInitialStats = require('../utils/MakeInitialStats');
 
 router.use('/add', [ValidateUser]);
 router.route('/add').post((req, res) => {
@@ -11,11 +13,13 @@ router.route('/add').post((req, res) => {
 	const username = req.body.username;
 	const password = bcrypt.hashSync(req.body.password, 10);
 	const email = req.body.email;
+	const stats = req.body.stats || MakeInitialStats();
 
 	const newUser = new User({
 		username,
 		password,
 		email,
+		stats,
 	});
 
 	newUser
@@ -29,7 +33,6 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/login').post((req, res) => {
-	console.log('login user');
 	User.findOne({ username: req.body.username }).exec((err, user) => {
 		if (err) {
 			res.status(500).json({ message: err });
@@ -58,6 +61,25 @@ router.route('/login').post((req, res) => {
 			id: user.id,
 			username: user.username,
 			accessToken: token,
+		});
+	});
+});
+
+router.use('/stats', [AuthenticateUser]);
+router.route('./stats').post((req, res) => {
+	User.findOne({
+		username: req.body.username,
+	}).exec((err, user) => {
+		if (err) {
+			res.status(500).json({ message: err });
+		}
+		if (!user) {
+			res
+				.status(404)
+				.json({ message: `User '${req.body.username}' not found` });
+		}
+		res.status(200).json({
+			stats: user.stats,
 		});
 	});
 });

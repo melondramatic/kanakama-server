@@ -21,6 +21,9 @@ const userSchema = new Schema(
 			unique: true,
 			trim: true,
 		},
+		stats: {
+			type: String,
+		},
 	},
 	{
 		timestamps: true,
