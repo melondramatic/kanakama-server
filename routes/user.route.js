@@ -6,6 +6,7 @@ const User = require('../models/user.model');
 const ValidateUser = require('../middleware/userValidation');
 const AuthenticateUser = require('../middleware/userAuthentication');
 const MakeInitialStats = require('../utils/MakeInitialStats');
+const UpdateStats = require('../utils/UpdateStats');
 
 router.use('/add', [ValidateUser]);
 router.route('/add').post((req, res) => {
@@ -65,31 +66,6 @@ router.route('/login').post((req, res) => {
 	});
 });
 
-router.use('/updateStats', [AuthenticateUser]);
-router.route('/updateStats').post((req, res) => {
-	User.findOne({
-		username: req.body.username,
-	}).exec((err, user) => {
-		if (err) {
-			res.status(500).json({ message: err });
-		}
-		if (!user) {
-			res
-				.status(404)
-				.json({ message: `User '${req.body.username}' not found` });
-		}
-		user.data = req.body.data;
-		user
-			.save()
-			.then(() => {
-				res.status(200).end();
-			})
-			.catch((err) => {
-				res.status(500).json({ message: `Error: ${err}` });
-			});
-	});
-});
-
 router.use('/stats', [AuthenticateUser]);
 router.route('/stats').post((req, res) => {
 	User.findOne({
@@ -106,6 +82,30 @@ router.route('/stats').post((req, res) => {
 		res.status(200).json({
 			stats: user.stats,
 		});
+	});
+});
+
+router.route('/stats/update').post((req, res) => {
+	User.findOne({
+		username: req.body.username,
+	}).exec((err, user) => {
+		if (err) {
+			res.status(500).json({ message: err });
+		}
+		if (!user) {
+			res
+				.status(404)
+				.json({ message: `User '${req.body.username}' not found` });
+		}
+		user.stats = UpdateStats(user, req.body.stats);
+		user
+			.save()
+			.then(() => {
+				res.status(200).end();
+			})
+			.catch((err) => {
+				res.status(500).json({ message: `Error: ${err}` });
+			});
 	});
 });
 
