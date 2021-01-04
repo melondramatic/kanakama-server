@@ -3,7 +3,9 @@ UpdateStats = (user, stats) => {
 	const statsToUpdate = JSON.parse(stats);
 
 	statsToUpdate.forEach((stat) => {
-		const oldStat = currentStats[stat.index];
+		const { index, kanaSelection, practiceMode, isCorrect } = stat;
+
+		const oldStat = currentStats[index];
 
 		const oldHiraganaStat = oldStat.hiraganaStat;
 		const oldKatakanaStat = oldStat.katakanaStat;
@@ -15,7 +17,7 @@ UpdateStats = (user, stats) => {
 								? oldHiraganaStat.chooseReadingOcurrences + 1
 								: oldHiraganaStat.chooseReadingOcurrences,
 						chooseReadingCorrect:
-							practiceMode === 'READING' && stat.isCorrect
+							practiceMode === 'READING' && isCorrect
 								? oldHiraganaStat.chooseReadingCorrect + 1
 								: oldHiraganaStat.chooseReadingCorrect,
 						chooseCharacterOcurrences:
@@ -23,7 +25,7 @@ UpdateStats = (user, stats) => {
 								? oldHiraganaStat.chooseCharacterOcurrences + 1
 								: oldHiraganaStat.chooseCharacterOcurrences,
 						chooseCharacterCorrect:
-							practiceMode === 'CHARACTER' && stat.isCorrect
+							practiceMode === 'CHARACTER' && isCorrect
 								? oldHiraganaStat.chooseCharacterCorrect + 1
 								: oldHiraganaStat.chooseCharacterCorrect,
 				  }
@@ -37,7 +39,7 @@ UpdateStats = (user, stats) => {
 								? oldKatakanaStat.chooseReadingOcurrences + 1
 								: oldKatakanaStat.chooseReadingOcurrences,
 						chooseReadingCorrect:
-							practiceMode === 'READING' && stat.isCorrect
+							practiceMode === 'READING' && isCorrect
 								? oldKatakanaStat.chooseReadingCorrect + 1
 								: oldKatakanaStat.chooseReadingCorrect,
 						chooseCharacterOcurrences:
@@ -45,7 +47,7 @@ UpdateStats = (user, stats) => {
 								? oldKatakanaStat.chooseCharacterOcurrences + 1
 								: oldKatakanaStat.chooseCharacterOcurrences,
 						chooseCharacterCorrect:
-							practiceMode === 'CHARACTER' && stat.isCorrect
+							practiceMode === 'CHARACTER' && isCorrect
 								? oldKatakanaStat.chooseCharacterCorrect + 1
 								: oldKatakanaStat.chooseCharacterCorrect,
 				  }
@@ -56,7 +58,7 @@ UpdateStats = (user, stats) => {
 			katakanaStat,
 		};
 
-		currentStats[stat.index] = newStat;
+		currentStats[index] = newStat;
 	});
 
 	return JSON.stringify(currentStats);
