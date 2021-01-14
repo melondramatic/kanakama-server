@@ -3,15 +3,15 @@ MakeInitialStats = () => {
 	for (let i = 0; i < 46; i++) {
 		const kanaStat = {
 			hiraganaStat: {
-				chooseReadingOcurrences: 0,
+				chooseReadingOccurrences: 0,
 				chooseReadingCorrect: 0,
-				chooseCharacterOcurrences: 0,
+				chooseCharacterOccurrences: 0,
 				chooseCharacterCorrect: 0,
 			},
 			katakanaStat: {
-				chooseReadingOcurrences: 0,
+				chooseReadingOccurrences: 0,
 				chooseReadingCorrect: 0,
-				chooseCharacterOcurrences: 0,
+				chooseCharacterOccurrences: 0,
 				chooseCharacterCorrect: 0,
 			},
 		};

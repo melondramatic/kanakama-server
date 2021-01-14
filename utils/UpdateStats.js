@@ -6,24 +6,24 @@ UpdateStats = (user, stats) => {
 		const { index, kanaSelection, practiceMode, isCorrect } = stat;
 
 		const oldStat = currentStats[index];
-
 		const oldHiraganaStat = oldStat.hiraganaStat;
 		const oldKatakanaStat = oldStat.katakanaStat;
+
 		const hiraganaStat =
 			kanaSelection === 'HIRAGANA'
 				? {
-						chooseReadingOcurrences:
+						chooseReadingOccurrences:
 							practiceMode === 'READING'
-								? oldHiraganaStat.chooseReadingOcurrences + 1
-								: oldHiraganaStat.chooseReadingOcurrences,
+								? oldHiraganaStat.chooseReadingOccurrences + 1
+								: oldHiraganaStat.chooseReadingOccurrences,
 						chooseReadingCorrect:
 							practiceMode === 'READING' && isCorrect
 								? oldHiraganaStat.chooseReadingCorrect + 1
 								: oldHiraganaStat.chooseReadingCorrect,
-						chooseCharacterOcurrences:
+						chooseCharacterOccurrences:
 							practiceMode === 'CHARACTER'
-								? oldHiraganaStat.chooseCharacterOcurrences + 1
-								: oldHiraganaStat.chooseCharacterOcurrences,
+								? oldHiraganaStat.chooseCharacterOccurrences + 1
+								: oldHiraganaStat.chooseCharacterOccurrences,
 						chooseCharacterCorrect:
 							practiceMode === 'CHARACTER' && isCorrect
 								? oldHiraganaStat.chooseCharacterCorrect + 1
@@ -34,18 +34,18 @@ UpdateStats = (user, stats) => {
 		const katakanaStat =
 			kanaSelection === 'KATAKANA'
 				? {
-						chooseReadingOcurrences:
+						chooseReadingOccurrences:
 							practiceMode === 'READING'
-								? oldKatakanaStat.chooseReadingOcurrences + 1
-								: oldKatakanaStat.chooseReadingOcurrences,
+								? oldKatakanaStat.chooseReadingOccurrences + 1
+								: oldKatakanaStat.chooseReadingOccurrences,
 						chooseReadingCorrect:
 							practiceMode === 'READING' && isCorrect
 								? oldKatakanaStat.chooseReadingCorrect + 1
 								: oldKatakanaStat.chooseReadingCorrect,
-						chooseCharacterOcurrences:
+						chooseCharacterOccurrences:
 							practiceMode === 'CHARACTER'
-								? oldKatakanaStat.chooseCharacterOcurrences + 1
-								: oldKatakanaStat.chooseCharacterOcurrences,
+								? oldKatakanaStat.chooseCharacterOccurrences + 1
+								: oldKatakanaStat.chooseCharacterOccurrences,
 						chooseCharacterCorrect:
 							practiceMode === 'CHARACTER' && isCorrect
 								? oldKatakanaStat.chooseCharacterCorrect + 1

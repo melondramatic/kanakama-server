@@ -2,16 +2,21 @@ const jwt = require('jsonwebtoken');
 
 AuthenticateUser = (req, res, next) => {
 	let token = req.headers['x-access-token'];
+	let error = false;
+
 	if (!token) {
-		return res.status(403).json({ message: 'Could not authenticate user' });
+		error = true;
+		return res.status(403).json({ error: ['Could not authenticate user'] });
 	}
 
-	jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+	jwt.verify(token, process.env.JWT_KEY, (err) => {
 		if (err) {
-			return res.status(401).json({ message: 'Unauthorized' });
+			error = true;
+			return res.status(401).json({ error: ['Unauthorized'] });
 		}
-		next();
 	});
+
+	if (!error) next();
 };
 
 module.exports = AuthenticateUser;
