@@ -28,11 +28,3 @@ jobs:
           yarn test
         env:
           CI: true
-
-      - name: Deploy to Heroku
-        uses: AkhileshNS/heroku-deploy@v3.8.8
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROUK_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_APP_EMAIL}}
-          usedocker: false
