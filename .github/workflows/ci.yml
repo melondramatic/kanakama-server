@@ -30,7 +30,8 @@ jobs:
           CI: true
 
       - name: Log in to Heroku
-        env: HEROKU_API_KEY ${{ secrets.HEROKU_API_KEY }}
+        env:
+          HEROKU_API_KEY ${{ secrets.HEROKU_API_KEY }}
         run: |
           heroku login
 
