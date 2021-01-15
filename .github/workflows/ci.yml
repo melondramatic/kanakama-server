@@ -29,13 +29,10 @@ jobs:
         env:
           CI: true
 
-      - name: Log in to Heroku
+      - name: Add remote origin
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku login
-
-      - name: Add remote origin
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
       - name: Deploy to Heroku
