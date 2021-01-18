@@ -1,0 +1,34 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+  heroku: circleci/heroku@1.2.4
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            yarn install
+      - run:
+          name: Unit tests
+          command: |
+            yarn test
+      - heroku/install
+      - heroku/check-authentication
+      - run:
+          name: Heroku login
+          command: |
+            heroku container:login
+      - run:
+          name: Heroku push
+          command: |
+            heroku container:push -a $HEROKU_APP_NAME web
+      - run:
+          name: Heroku release
+          command: |
+            heroku container:release -a $HEROKU_APP_NAME web
