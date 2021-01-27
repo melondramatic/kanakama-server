@@ -48,4 +48,20 @@ describe('addUser controller tests', () => {
 		AddController(req, mockResponse());
 		expect(modelStub.calledOnce).equals(true);
 	});
+
+	it('saves a user with no email provided', () => {
+		modelStub.returns(Promise.resolve('ok'));
+
+		req = {
+			body: {
+				username: 'testUser',
+				password: 'testPassword',
+				email: '',
+				stats: 'testStats',
+			},
+		};
+
+		AddController(req, mockResponse());
+		expect(modelStub.calledOnce).equals(true);
+	});
 });

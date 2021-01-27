@@ -12,9 +12,12 @@ AddController = (req, res) => {
 	const newUser = new User({
 		username,
 		password,
-		email,
 		stats,
 	});
+
+	if (req.body.email !== '') {
+		newUser.email = email;
+	}
 
 	newUser
 		.save()
