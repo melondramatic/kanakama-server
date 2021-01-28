@@ -7,10 +7,9 @@ const {
 	UpdateStatsController,
 } = require('../controllers/stats.controller');
 const ValidateUsername = require('../middleware/usernameValidation');
-const ValidateEmail = require('../middleware/emailValidation');
 const AuthenticateUser = require('../middleware/userAuthentication');
 
-router.use('/add', [ValidateUsername, ValidateEmail]);
+router.use('/add', [ValidateUsername]);
 router.route('/add').post((req, res) => AddController(req, res));
 
 router.route('/login').post((req, res) => LoginController(req, res));

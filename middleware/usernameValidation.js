@@ -1,9 +1,6 @@
 const User = require('../models/user.model');
 
 ValidateUsername = async (req, res, next) => {
-	let error = false;
-	const errorMessages = [];
-
 	User.findOne({
 		username: req.body.username,
 	}).exec((err, user) => {

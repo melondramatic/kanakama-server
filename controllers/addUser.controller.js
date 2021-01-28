@@ -6,7 +6,6 @@ const MakeInitialStats = require('../utils/MakeInitialStats');
 AddController = (req, res) => {
 	const username = req.body.username;
 	const password = bcrypt.hashSync(req.body.password, 10);
-	const email = req.body.email;
 	const stats = req.body.stats || MakeInitialStats();
 
 	const newUser = new User({
@@ -16,7 +15,7 @@ AddController = (req, res) => {
 	});
 
 	if (req.body.email !== '') {
-		newUser.email = email;
+		newUser.email = bcrypt.hashSync(req.body.email, 10);
 	}
 
 	newUser
@@ -25,7 +24,7 @@ AddController = (req, res) => {
 			res.status(200).end();
 		})
 		.catch((err) => {
-			return res.status(500).json({ message: `Error: ${err}` });
+			return res.status(500).json({ error: [`Error: ${err}`] });
 		});
 };
 
